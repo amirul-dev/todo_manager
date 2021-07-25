@@ -1,0 +1,36 @@
+{% extends "todo/base.html" %}
+{% block header %}               
+{%endblock%}
+{% block body %}
+	<div class='row' id='login'>                 
+	<div class='col-lg-6'>
+		<div id='intro'>
+		<p id='phrase'>Never forget a thing</p>
+		<p>From groceries to homework, we help you remember it all, anytime, anywhere</p>
+		</div>
+	</div>
+	<div class='col-lg-6' id='form'>
+		<h3>Sign up</h3>
+		<form>
+		  <div class="form-group">
+		    <label for="email">Email address</label>
+		    <input type="email" class="form-control" id="email" placeholder="Enter email">
+		  </div>
+		  <div class="form-group">
+		    <label for="password">Password</label>
+		    <input type="password" class="form-control" id="password" placeholder="Password">
+		  </div>
+		  <div class="form-group">
+		    <label for="password2">Confirm Password</label>
+		    <input type="password" class="form-control" id="password2" placeholder="Re-enter Password">
+		  </div>
+		  <div class="form-check">
+		    <input type="checkbox" class="form-check-input" id="remember">
+		    <label class="form-check-label" for="remember">Remember</label>
+		  </div>
+		  </br>
+		  <a href='todos'>Submit</a>
+		</form>	
+	</div>
+	</div>
+{% endblock %}

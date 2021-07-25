@@ -1,17 +1,45 @@
+<! DOCTYPE html>
 <html>
-<head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	<link href='{{ url_for('static', filename='main.css')}} rel='stylesheet'/>
-</head>
-<body>
-	<div class="container" id='main'>
-		<h2>TODO MAIN PAGE</h2>
-		{% block header %}        
-		{% endblock %}
-		{% block body %}
-		{% endblock %}
-		<p>END OF THE PAGE</p>
-	</div>
-</body>
+	<head>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<link href='{{ url_for('static', filename='main.css')}}' rel='stylesheet'/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+	<title> TODO MANAGER </title>
+	<body>
+		<nav class="navbar fixed-top ">
+			  <a class="navbar-brand" href="/">Home</a>
+			  <ul class="navbar-nav" style='margin-right:30px'>
+			  	<li class="nav-item">
+					<a class="nav-link" style='padding:8px;' data-value="about" href="#">About</a>
+		    		</li>
+			  </ul>	 
+		</nav>
+		<div class="container" id='main' style='margin-top:100px; margin-bottom:150px'>
+			{% block header %}        
+			{% endblock %}
+			{% block body %}
+			{% endblock %}
+		</div>
+
+<!-- footer -->
+
+		<footer class="footer fixed-bottom">
+			<div class="row">
+				<div class='row' id='developer'>
+					<p class="text-center lead">Developer : &nbsp;</p>
+					 <a href="https://github.com/amirul-dev">
+	  					<img src='{{ url_for('static', filename='github.png')}}' alt="github" height='30px' width='30px'>
+					&nbsp;
+					</a> 
+					<a href="https://www.linkedin.com/in/amirul-haqe/">
+	  					<img src='{{ url_for('static', filename='linkedin.png')}}' alt="github" height='32px' width='32px'>
+					</a> 
+				</div>
+			</div>
+		</footer>
+
+
+	</body>
 </html>
 

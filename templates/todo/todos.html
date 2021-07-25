@@ -1,8 +1,42 @@
 {% extends "todo/base.html" %}
-{% block header %}               
-this is todos page
-{%endblock%}
-{% block body %}                    
-</br>
-<a href='1'>click here for details</a>         
+{% block header %}
+
+	<div class='row'>
+
+
+	    <div class='col-lg-6'>
+	    </div>
+
+
+	    <div class='col-lg-6'>
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Leave your ToDos here, and free your mind</h4>
+                        <div class="d-flex"> 
+				<input type="text" class=" todo-input" placeholder="What do you need to do today?"> <button class="btn todo-add-btn">Add</button> 
+			</div>
+
+			    <div class='scroll-area-sm'>
+                            <ul class="todo-list">
+                                <li>
+				<div class='content-wrapper '> 
+                                    <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox"> Buy notebooks</label> </div>
+				    <div class="content-right"> <button class="border-0 btn-transition btn btn-outline-success"> <i class="fa fa-check"></i></button> <button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
+				</div>
+                                </li>
+                                <li>
+				<div class='content-wrapper '> 
+                                    <div class="form-check"> <label class="form-check-label completed"> <input class="checkbox" type="checkbox" checked=""> Do homework</label> </div>
+				    <div class="content-right"> <button class="border-0 btn-transition btn btn-outline-success"> <i class="fa fa-check"></i></button> <button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
+				</div>
+                                </li>
+                            </ul>
+			    </div>
+                       
+                    </div>
+                </div>
+	   </div>
+	</div>
 {% endblock %}
+

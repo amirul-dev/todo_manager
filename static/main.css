@@ -1,3 +1,173 @@
-div.sidebar{
-	border-right: 3px solid #ddd;
+:root {
+  --orange: #F97300;
+}
+
+p{
+	font-family:Roboto;
+	font-size:16px;
 	}
+
+body{
+	margin:auto;
+	font-family:Roboto;
+	font-size:16px;
+	color:black;
+	background-color:white;
+	}
+
+.navbar{
+	background: var(--orange);
+	box-shadow: 3px 3px 20px #aaaaaa;
+}
+
+.nav-link , .navbar-brand{
+	color: #f4f4f4;
+	margin-left:30px;
+}
+
+.nav-link:hover{
+	background: #f4f4f4;
+	color:var(--orange);
+}
+
+.navbar-brand:hover{
+	color: white;
+	font-weight:bold;
+}
+
+.footer{
+	height:100px;
+	background:var(--orange);
+	}
+
+#login{
+	border-width:3px;
+	border-style:solid;
+	border-color:var(--orange);
+	border-radius:20px;
+	}
+
+#intro{
+	padding:30% 20%;
+	}
+
+#welcometext{
+	font-size:50px;
+	}
+
+.btn{
+	color:white;
+	background:var(--orange);
+	}
+
+#developer{
+	margin-top:30px;
+	position: absolute;
+	right:0px;
+	margin-right:50px;
+	}
+
+#phrase{
+	font-size:30px;
+	}
+
+#form{
+	margin-top:5%;
+	padding:30px;
+	}
+
+--todo
+
+
+.card {
+    border-radius: 0
+}
+
+.todo-add-btn{
+    border-radius: 2px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    font-weight:bold;
+}
+
+.todo-input{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.todo-input:focus{
+        border: 0.1px solid var(--orange);
+}
+
+.d-flex{
+	margin-bottom:20px;
+}
+
+.todo-list{
+	list-style: none;
+	padding: 0px;
+	list-style: none;
+}
+
+.todo-list li{
+padding: .4rem 0;
+border-bottom: 1px solid #f3f3f3
+}
+
+.todo-list li .form-check label:hover {
+    cursor: pointer
+}
+
+.completed {
+    text-decoration: line-through;
+    text-decoration-color: var(--orange);
+}
+
+.content-wrapper {
+    display: flex;
+}
+
+.content-right {
+    margin-left: auto;
+}
+
+
+--button
+
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer
+}
+
+.todo-list .btn{
+    background:white;
+}
+
+.btn-outline-success {
+    color: #3ac47d;
+}
+
+.btn-outline-danger {
+    color: #DC3545;
+}
+
+
+.btn-outline-success:hover {
+    color: #fff;
+    background-color: #3ac47d;
+}
+
+.btn-outline-danger:hover {
+    color: #fff;
+    background-color: #DC3545;
+}
+
+.scroll-area-sm {
+    height: 288px;
+    overflow-x: hidden
+}
+
+
