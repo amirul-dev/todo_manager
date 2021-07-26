@@ -3,34 +3,37 @@
 
 	<div class='row'>
 
-
 	    <div class='col-lg-6'>
 	    </div>
-
 
 	    <div class='col-lg-6'>
                 <div class="card">
                     <div class="card-body">
 
                         <h4 class="card-title">Leave your ToDos here, and free your mind</h4>
+			<form action="{{url_for('todo.todos')}}" method="POST">
                         <div class="d-flex"> 
-				<input type="text" class=" todo-input" placeholder="What do you need to do today?"> <button class="btn todo-add-btn">Add</button> 
+				<input type="text" class=" todo-input" placeholder="What do you need to do today?" name='new-todo'> <button type='submit' class="btn todo-add-btn">Add</button> 
 			</div>
+			</form>
 
 			    <div class='scroll-area-sm'>
                             <ul class="todo-list">
+				{% for id, title in data %}
                                 <li>
 				<div class='content-wrapper '> 
-                                    <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox"> Buy notebooks</label> </div>
-				    <div class="content-right"> <button class="border-0 btn-transition btn btn-outline-success"> <i class="fa fa-check"></i></button> <button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
+                                    <form action="{{url_for('todo.tick', id=id)}}" method="POST">
+                                    <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" name='tick' value='completed'> {{title}}</label> </div>
+				    </form>
+
+				    <div class="content-right"> 
+				    <form action="{{url_for('todo.delete', id=id)}}" method="POST">
+					<button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
+				    </form>
+
 				</div>
                                 </li>
-                                <li>
-				<div class='content-wrapper '> 
-                                    <div class="form-check"> <label class="form-check-label completed"> <input class="checkbox" type="checkbox" checked=""> Do homework</label> </div>
-				    <div class="content-right"> <button class="border-0 btn-transition btn btn-outline-success"> <i class="fa fa-check"></i></button> <button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
-				</div>
-                                </li>
+				{%endfor%}
                             </ul>
 			    </div>
                        

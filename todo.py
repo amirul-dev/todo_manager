@@ -58,8 +58,36 @@ def signup():
                 conn.commit()
                 return redirect(url_for("todo.todos"), 302)
 
-@bp.route('/todos/')       
+@bp.route('/todos/', methods=['GET', 'POST'])       
 def todos():
-	return render_template('todo/todos.html')
+    conn = db.get_db()
+    cursor = conn.cursor()
+    if request.method == "GET":
+        cursor.execute("select id, title from todo")
+        data = cursor.fetchall()
+        return render_template('todo/todos.html', data=data)
+    elif request.method == "POST":
+        newtodo = request.form.get('new-todo')
+        if newtodo!='':
+                cursor.execute("insert into todo (title) values (?)", [newtodo])
+                conn.commit()
+        return redirect(url_for("todo.todos"), 302)
+
+@bp.route('/delete/<id>', methods=['POST'])   
+def delete(id):
+    conn = db.get_db()
+    cursor = conn.cursor()
+    cursor.execute("delete from todo where id = (?)", [id])
+    conn.commit()
+    return redirect(url_for("todo.todos"), 302)
+
+@bp.route('/tick/<id>', methods=['POST'])   
+def tick(id):
+    conn = db.get_db()
+    cursor = conn.cursor()
+    status = request.form.get('tick')
+    cursor.execute("upgrade todo set status = (?) where id = (?)", [id])
+    conn.commit()
+    return redirect(url_for("todo.todos"), 302)
 
 
