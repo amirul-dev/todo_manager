@@ -184,7 +184,8 @@ border-bottom: 1px solid #f3f3f3
     overflow-x: hidden
 }
 
-.fa-calendar-day{
-    color:white;
+.due-alert{
+	color:#DC3545;
+	float:right;
+	margin-left:20px;
 }
-

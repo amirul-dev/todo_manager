@@ -6,6 +6,37 @@ bp = Blueprint('todo', 'todo', url_prefix='/')
 
 global username
 
+def rem_time_calc(f):
+	due_date = datetime.datetime.strptime(f[2], '%Y-%m-%d')
+	dt = f[3].split(':')
+	due_time = datetime.timedelta(hours=int(dt[0]), minutes=int(dt[1]))
+	due_datetime = due_date+due_time
+	current_datetime = datetime.datetime.now()
+	rem_time = due_datetime - current_datetime
+	days = abs(rem_time.days)
+	seconds = rem_time.seconds
+	hours = seconds//3600
+	minutes = (seconds//60)%60
+	if days==0:
+		rem_time = f'{hours}hrs, {minutes}mins'
+	else:
+		rem_time = f'{days}days, {hours}hrs, {minutes}mins'
+	if due_datetime > current_datetime:
+		status = 'Due'
+	else:
+		status = 'Overdue'
+	return rem_time, status
+
+def check_overdue(due_date, due_time):
+	due_date = datetime.datetime.strptime(due_date, '%Y-%m-%d')
+	dt = due_time.split(':')
+	due_time = datetime.timedelta(hours=int(dt[0]), minutes=int(dt[1]))
+	due_datetime = due_date+due_time
+	current_datetime = datetime.datetime.now()
+	if due_datetime < current_datetime:
+		status = 'Overdue'
+		return status
+	
 def format_date(d):
 	d = datetime.datetime.strptime(str(d), '%Y-%m-%d')
 	d = d.strftime("%a - %b %d, %Y")
@@ -77,7 +108,9 @@ def todos():
     if request.method == "GET":
         cursor.execute("select id, title, due_date, due_time from todo order by due_date, due_time")
         data = cursor.fetchall()
-        return render_template('todo/todos.html', data=data, format_date=format_date, format_time=format_time)#nav_right_text=username
+        first_data = data[0]
+        rem_time, status = rem_time_calc(first_data)
+        return render_template('todo/todos.html', data=data, first_data=first_data, rem_time=rem_time, status=status, format_date=format_date, format_time=format_time, check_overdue=check_overdue)#nav_right_text=username
     elif request.method == "POST":
         newtodo = request.form.get('new-todo')
         newtodo_date = request.form.get('new-todo-date')

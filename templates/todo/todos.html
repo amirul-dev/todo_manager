@@ -4,6 +4,10 @@
 	<div class='row'>
 
 	    <div class='col-lg-4'>
+		<div style='margin-top:50px; margin-bottom:50px'>
+		<h2>{{first_data[1]}}</h2>
+		<h5>{{status}} by : {{rem_time}}</h5>
+		</div>
 	    </div>
 
 	    <div class='col-lg-8'>
@@ -26,7 +30,10 @@
                                 <li>
 				<div class='content-wrapper '> 
                                     <form action="{{url_for('todo.tick', id=id)}}" method="POST">
-                                    <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" name='tick' value='completed'> {{title}}  </label></div>
+                                    <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" name='tick' value='completed'> {{title}} </label>
+					{%if check_overdue(due_date,due_time)=='Overdue'%}
+					<div style='color:#DC3545; float:right; margin-left:20px'>Overdue</div>{%endif%}
+				     </div>
 				    </form>
 
 				    <div class="content-right"> 
