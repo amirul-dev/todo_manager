@@ -97,7 +97,7 @@ def signup():
         elif password!=password2: 
                 return render_template('todo/signup.html') 
         else:
-                cursor.execute("insert into users (name, email, password) values (?,?,?)", [name, email, password])
+                cursor.execute("insert into users (name, email, password) values (?,?,?)", [username, email, password])
                 conn.commit()
                 return redirect(url_for("todo.todos"), 302)
 
@@ -106,16 +106,20 @@ def todos():
     conn = db.get_db()
     cursor = conn.cursor()
     if request.method == "GET":
-        cursor.execute("select id, title, due_date, due_time from todo order by due_date, due_time")
+        cursor.execute("select id, title, due_date, due_time from todos order by due_date, due_time")
         data = cursor.fetchall()
-        first_data = data[0]
-        rem_time, status = rem_time_calc(first_data)
-        return render_template('todo/todos.html', data=data, first_data=first_data, rem_time=rem_time, status=status, format_date=format_date, format_time=format_time, check_overdue=check_overdue)#nav_right_text=username
+        if data : 
+                first_todo = data[0][1]
+                rem_time, status = rem_time_calc(data[0])
+        else:
+                first_todo = ''
+                rem_time, status = '',''
+        return render_template('todo/todos.html', data=data, first_todo=first_todo, rem_time=rem_time, status=status, format_date=format_date, format_time=format_time, check_overdue=check_overdue, nav_right_text=username)
     elif request.method == "POST":
-        newtodo = request.form.get('new-todo')
+        newtodo = request.form.get('new-todo').capitalize()
         newtodo_date = request.form.get('new-todo-date')
         newtodo_time = request.form.get('new-todo-time')
-        cursor.execute("insert into todo (title, due_date, due_time) values (?,?,?)", [newtodo, newtodo_date, newtodo_time])
+        cursor.execute("insert into todos (title, due_date, due_time) values (?,?,?)", [newtodo, newtodo_date, newtodo_time])
         conn.commit()
         return redirect(url_for("todo.todos"), 302)
 
@@ -124,30 +128,36 @@ def shopping():
     conn = db.get_db()
     cursor = conn.cursor()
     if request.method == "GET":
-        cursor.execute("select id, title from todo")
+        cursor.execute("select id, item from shopping")
         data = cursor.fetchall()
-        return render_template('todo/shopping.html', data=data, )#nav_right_text=username
+        return render_template('todo/shopping.html', data=data, nav_right_text=username)
     elif request.method == "POST":
-        newtodo = request.form.get('new-todo')
-        cursor.execute("insert into todo (title,) values (?)", [newtodo])
+        newitem = request.form.get('new-item')
+        cursor.execute("insert into shopping (item) values (?)", [newitem])
         conn.commit()
         return redirect(url_for("todo.shopping"), 302)
 
-@bp.route('/delete/<id>', methods=['POST'])   
-def delete(id):
+@bp.route('/delete/<id>/<table>/', methods=['POST'])   
+def delete(id,table):
     conn = db.get_db()
     cursor = conn.cursor()
-    cursor.execute("delete from todo where id = (?)", [id])
+    cursor.execute(f"delete from {table} where id = (?)", [id])
     conn.commit()
-    return redirect(url_for("todo.todos"), 302)
+    return redirect(url_for(f"todo.{table}"), 302)
 
 @bp.route('/tick/<id>', methods=['POST'])   
 def tick(id):
     conn = db.get_db()
     cursor = conn.cursor()
     status = request.form.get('tick')
-    cursor.execute("upgrade todo set status = (?) where id = (?)", [id])
+    cursor.execute("upgrade todos set status = (?) where id = (?)", [id])
     conn.commit()
     return redirect(url_for("todo.todos"), 302)
+
+@bp.route('/signout')
+def signout():
+	global username
+	username = ''
+	return render_template('todo/index.html')
 
 

@@ -92,14 +92,14 @@ body{
     border-radius: 0
 }
 
-.todo-add-btn{
+.add-btn{
     border-radius: 2px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     font-weight:bold;
 }
 
-.todo-input{
+.add-input{
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;

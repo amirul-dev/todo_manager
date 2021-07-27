@@ -11,9 +11,9 @@
                     <div class="card-body">
 
                         <h4 class="card-title">Keep your grocery list here and access from anywhere</h4>
-			<form action="{{url_for('todo.todos')}}" method="POST">
+			<form action="{{url_for('todo.shopping')}}" method="POST">
                         <div class="d-flex"> 
-				<input type="text" class=" todo-input" placeholder="Anything to buy?" name='new-todo'> <button type='submit' class="btn todo-add-btn">Add</button> 
+				<input type="text" class=" add-input" placeholder="Anything to buy?" name='new-item'> <button type='submit' class="btn add-btn">Add</button> 
 			</div>
 			</form>
 
@@ -27,7 +27,7 @@
 				    </form>
 
 				    <div class="content-right"> 
-				    <form action="{{url_for('todo.delete', id=id)}}" method="POST">
+				    <form action="{{url_for('todo.delete', id=id, table='shopping')}}" method="POST">
 					<button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
 				    </form>
 
