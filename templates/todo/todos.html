@@ -3,32 +3,35 @@
 
 	<div class='row'>
 
-	    <div class='col-lg-6'>
+	    <div class='col-lg-4'>
 	    </div>
 
-	    <div class='col-lg-6'>
+	    <div class='col-lg-8'>
                 <div class="card">
                     <div class="card-body">
 
                         <h4 class="card-title">Leave your ToDos here, and free your mind</h4>
 			<form action="{{url_for('todo.todos')}}" method="POST">
                         <div class="d-flex"> 
-				<input type="text" class=" todo-input" placeholder="What do you need to do today?" name='new-todo'> <button type='submit' class="btn todo-add-btn">Add</button> 
+				<input type="text" class=" todo-input" placeholder="What do you need to do today?" name='new-todo' required> 
+				<input type="date" class=" todo-input todo-date" placeholder="Enter the due date" name='new-todo-date'> 	
+				<input type="time" class=" todo-input todo-time" placeholder="Enter the due date" name='new-todo-time'> 
+				<button type='submit' class="btn todo-add-btn">Add</button> 
 			</div>
 			</form>
 
 			    <div class='scroll-area-sm'>
                             <ul class="todo-list">
-				{% for id, title in data %}
+				{% for id, title, due_date, due_time in data %}
                                 <li>
 				<div class='content-wrapper '> 
                                     <form action="{{url_for('todo.tick', id=id)}}" method="POST">
-                                    <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" name='tick' value='completed'> {{title}}</label> </div>
+                                    <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" name='tick' value='completed'> {{title}}  </label></div>
 				    </form>
 
 				    <div class="content-right"> 
 				    <form action="{{url_for('todo.delete', id=id)}}" method="POST">
-					<button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
+					{{format_date(due_date)}}  {{format_time(due_time)}}<button class="border-0 btn-transition btn btn-outline-danger" style="margin-left:10px"> <i class="fa fa-trash"></i> </button> </div>
 				    </form>
 
 				</div>

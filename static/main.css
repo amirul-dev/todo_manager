@@ -35,6 +35,15 @@ body{
 	font-weight:bold;
 }
 
+.nav li {
+  position: relative;
+  display: block;
+}
+
+.navbar-nav { 
+    flex-direction: row;
+}
+
 .footer{
 	height:100px;
 	background:var(--orange);
@@ -97,6 +106,10 @@ body{
     border-radius: 2px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+}
+
+.todo-date, .todo-time{
+	width:50%
 }
 
 .todo-input:focus{
@@ -171,4 +184,7 @@ border-bottom: 1px solid #f3f3f3
     overflow-x: hidden
 }
 
+.fa-calendar-day{
+    color:white;
+}
 

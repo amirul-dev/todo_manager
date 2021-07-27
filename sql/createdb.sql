@@ -6,7 +6,13 @@ create table todo (
        id integer primary key AUTOINCREMENT not null,
        title text not null,
        description text,
+       due_date date,
        due_time timestamp,
+       status text);
+
+create table shopping (
+       id integer primary key AUTOINCREMENT not null,
+       item text not null,
        status text);
 
 create table users (
