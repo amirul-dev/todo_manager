@@ -6,7 +6,8 @@ from flask.cli import with_appcontext
 def get_db():
 	if 'db' not in g:
 		dbname = current_app.config['DATABASE']		
-		g.db = sqlite3.connect(dbname)     
+		g.db = sqlite3.connect(dbname)   
+		g.db.execute("PRAGMA foreign_keys = ON;")  
 	return g.db
 
 def close_db(e=None):

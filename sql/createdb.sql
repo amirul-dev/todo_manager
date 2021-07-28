@@ -6,18 +6,20 @@ drop table if exists shopping;
 
 create table todos (
        id integer primary key AUTOINCREMENT not null,
-       userid integer not null,
        title text not null,
        description text,
        due_date date,
        due_time timestamp,
-       status text
+       status text,
+       userid integer not null,
        FOREIGN KEY (userid) references users(id) ON DELETE CASCADE);
 
 create table shopping (
        id integer primary key AUTOINCREMENT not null,
        item text not null,
-       status text);
+       status text,
+       userid integer not null,
+       FOREIGN KEY (userid) references users(id) ON DELETE CASCADE);
 
 create table users (
        id integer primary key AUTOINCREMENT not null,

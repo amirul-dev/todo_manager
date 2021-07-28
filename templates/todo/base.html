@@ -12,15 +12,15 @@
 		<nav class="navbar fixed-top ">
 			  <a class="navbar-brand" href="/">Home</a>
 			  <ul class="navbar-nav" style='margin-right:30px'>
+				{%if userid%}
 				<li class="nav-item">
-					<a class="nav-link" style='padding:8px;' data-value="shopping" href="{{url_for("todo.shopping")}}"><i class="fa fa-shopping-cart"></i></a>
+					<a class="nav-link" style='padding:8px;' data-value="shopping" href="{{url_for("todo.shopping",userid=userid)}}"><i class="fa fa-shopping-cart"></i></a>
 		    		</li>
 				<li class="nav-item">
-					<a class="nav-link" style='padding:8px;' data-value="todo" href="{{url_for("todo.todos")}}"><i class="fa fa-calendar-check-o"></i></a>
+					<a class="nav-link" style='padding:8px;' data-value="todo" href="{{url_for("todo.todos", userid=userid)}}"><i class="fa fa-calendar-check-o"></i></a>
 		    		</li>
-                                {%if nav_right_text%}
 				<li class="nav-item">
-					<a class="nav-link" style='padding:8px;' data-value="about" href="/signout">{{nav_right_text}}&nbsp;&nbsp;<i class="fa fa-sign-out"></i></a>
+					<a class="nav-link" style='padding:8px;' data-value="about" href="/">{{nav_right_text}}&nbsp;&nbsp;<i class="fa fa-sign-out"></i></a>
 		    		</li>
                                 {%endif%}
 			  </ul>	 
