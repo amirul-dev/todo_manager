@@ -5,7 +5,7 @@
 
 	    <div class='col-lg-4'>
 		{%if first_todo!='' %}
-		<div style='margin-top:50px; margin-bottom:50px'>
+		<div class='first-todo' style='margin-top:50px; margin-bottom:50px'>
 		<h2>{{first_todo}}</h2>
 		<h5>{{status}} by : {{rem_time}}</h5>
 		</div>
@@ -39,8 +39,8 @@
 				    </form>
 
 				    <div class="content-right"> 
-				    <form action="{{url_for('todo.delete', id=id, table='todos', userid=userid)}}" method="POST">
-					{{format_date(due_date)}}  {{format_time(due_time)}}<button class="border-0 btn-transition btn btn-outline-danger" style="margin-left:10px"> <i class="fa fa-trash"></i> </button> </div>
+				    <form class='delete-form' action="{{url_for('todo.delete', id=id, table='todos', userid=userid)}}" method="POST">
+					{{format_date(due_date)}}  {{format_time(due_time)}}<button class="delete-btn border-0 btn-transition btn btn-outline-danger" style="margin-left:10px"> <i class="fa fa-trash"></i> </button> </div>
 				    </form>
 
 				</div>

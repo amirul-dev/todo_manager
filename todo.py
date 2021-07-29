@@ -1,6 +1,7 @@
 from flask import Blueprint, g, render_template, request, redirect, url_for
 from . import db
 import datetime
+import passlib
 
 bp = Blueprint('todo', 'todo', url_prefix='/')
 

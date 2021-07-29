@@ -18,7 +18,7 @@
 			</form>
 
 			    <div class='scroll-area-sm'>
-                            <ul class="todo-list">
+                            <ul class="shopping-list">
 				{% for id, title in data %}
                                 <li>
 				<div class='content-wrapper '> 
@@ -28,7 +28,7 @@
 
 				    <div class="content-right"> 
 				    <form action="{{url_for('todo.delete', id=id, table='shopping',userid=userid)}}" method="POST">
-					<button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
+					<button class="delete-btn border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
 				    </form>
 
 				</div>
