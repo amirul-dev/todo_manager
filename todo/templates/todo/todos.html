@@ -7,7 +7,7 @@
 		{%if first_todo!='' %}
 		<div class='first-todo' style='margin-top:50px; margin-bottom:50px'>
 		<h2>{{first_todo}}</h2>
-		<h5>{{status}} by : {{rem_time}}</h5>
+		<h5>{{status}}{{rem_time}}</h5>
 		</div>
 		{%endif%}
 	    </div>
@@ -33,8 +33,8 @@
 				<div class='content-wrapper '> 
                                     <form action="{{url_for('todo.tick', id=id, userid=userid, status='', table='todos')}}" method="POST">
                                     <div class="form-check"> <label class="form-check-label"style="text-decoration:{%if status=='checked'%}line-through;{%endif%}"> <input class="tickitem checkbox" type="checkbox" name='tick' {{status}}> {{title}} </label>
-					{%if check_overdue(due_date,due_time)=='Overdue'%}
-					<div class='due-alert'>Overdue</div>{%endif%}
+					{%if check_overdue(due_date,due_time,status)=='Overdue' %}
+					<span class='due-alert'>Overdue</span>{%endif%}
 				     </div>
 				    </form>
 
