@@ -1,0 +1,45 @@
+{% extends "todo/base.html" %}
+{% block header %}
+
+	<div class='row'>
+
+	    <div class='col-lg-6'>
+	    </div>
+
+	    <div class='col-lg-6'>
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Keep your grocery list here and access from anywhere</h4>
+			<form action="{{url_for('todo.shopping',userid=userid)}}" method="POST">
+                        <div class="d-flex"> 
+				<input type="text" class=" add-input" placeholder="Anything to buy?" name='new-item'> <button type='submit' class="btn add-btn">Add</button> 
+			</div>
+			</form>
+
+			    <div class='scroll-area-sm'>
+                            <ul class="shopping-list">
+				{% for id, title in data %}
+                                <li>
+				<div class='content-wrapper '> 
+                                    <form action="{{url_for('todo.tick', id=id)}}" method="POST">
+                                    <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" name='tick' value='completed'> {{title}}</label> </div>
+				    </form>
+
+				    <div class="content-right"> 
+				    <form action="{{url_for('todo.delete', id=id, table='shopping',userid=userid)}}" method="POST">
+					<button class="delete-btn border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
+				    </form>
+
+				</div>
+                                </li>
+				{%endfor%}
+                            </ul>
+			    </div>
+                       
+                    </div>
+                </div>
+	   </div>
+	</div>
+{% endblock %}
+
