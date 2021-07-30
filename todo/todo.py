@@ -3,9 +3,10 @@ from . import db
 import datetime
 import passlib
 
-bp = Blueprint('todo', 'todo', url_prefix='/')
+global username
+username=''
 
-#global username
+bp = Blueprint('todo', 'todo', url_prefix='/')
 
 def rem_time_calc(f):
 	due_date = datetime.datetime.strptime(f[2], '%Y-%m-%d')
@@ -111,7 +112,9 @@ def todos(userid):
     conn = db.get_db()
     cursor = conn.cursor()
     if request.method == "GET":
-        cursor.execute("select id, title, due_date, due_time from todos where userid=? order by due_date, due_time ",[userid])
+        if username=='':
+                return redirect(url_for("todo.index"), 302)
+        cursor.execute("select id, title, due_date, due_time, status from todos where userid=? order by due_date, due_time ",[userid])
         data = cursor.fetchall()
         if data : 
                 first_todo = data[0][1]
@@ -133,7 +136,9 @@ def shopping(userid):
     conn = db.get_db()
     cursor = conn.cursor()
     if request.method == "GET":
-        cursor.execute("select id, item from shopping where userid=?",[userid])
+        if username=='':
+                return redirect(url_for("todo.index"), 302)
+        cursor.execute("select id, item, status from shopping where userid=?",[userid])
         data = cursor.fetchall()
         return render_template('todo/shopping.html', data=data, nav_right_text=username, userid=userid)
     elif request.method == "POST":
@@ -150,13 +155,12 @@ def delete(id,table,userid):
     conn.commit()
     return redirect(url_for(f"todo.{table}", userid=userid), 302)
 
-@bp.route('/tick/<id>', methods=['POST'])   
-def tick(id):
+@bp.route('/tick/<id>/<table>/<userid>/<status>', methods=['POST'])   
+def tick(id,table,userid,status):
     conn = db.get_db()
     cursor = conn.cursor()
-    status = request.form.get('tick')
-    cursor.execute("upgrade todos set status = (?) where id = (?)", [id])
+    cursor.execute(f"update {table} set status = (?) where id = (?)", [status, id])
     conn.commit()
-    return redirect(url_for("todo.todos"), 302)
+    return redirect(url_for("todo.todos", userid=userid), 302)
 
 

@@ -13,5 +13,22 @@ function deletebutton(){
 });		
 }
 
+function tick(){
+	console.log('tickfunction')
+	$(".todo-list, .shopping-list").on("click", ".tickitem", function() {
+	link = $(this).closest('form').attr('action');
+	if ($(this).is(':checked')){
+		link=link+'checked';
+		$(this).parent().css('text-decoration','line-through');
+	} else {
+		link=link+'none';
+		$(this).parent().css('text-decoration','');
+	}
+	$.post(link);
+});		
+}
+
 $(deletebutton);
+$(tick);
+
 

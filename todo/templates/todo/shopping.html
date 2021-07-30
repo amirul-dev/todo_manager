@@ -19,11 +19,11 @@
 
 			    <div class='scroll-area-sm'>
                             <ul class="shopping-list">
-				{% for id, title in data %}
+				{% for id, title, status in data %}
                                 <li>
 				<div class='content-wrapper '> 
-                                    <form action="{{url_for('todo.tick', id=id)}}" method="POST">
-                                    <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" name='tick' value='completed'> {{title}}</label> </div>
+                                    <form action="{{url_for('todo.tick', id=id, userid=userid, status='', table='shopping')}}" method="POST">
+                                    <div class="form-check"> <label class="form-check-label" style="text-decoration:{%if status=='checked'%}line-through;{%endif%}"> <input class="tickitem checkbox" type="checkbox" name='tick' {{status}}> {{title}}</label> </div>
 				    </form>
 
 				    <div class="content-right"> 

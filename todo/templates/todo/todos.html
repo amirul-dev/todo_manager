@@ -28,11 +28,11 @@
 
 			    <div class='scroll-area-sm'>
                             <ul class="todo-list">
-				{% for id, title, due_date, due_time in data %}
+				{% for id, title, due_date, due_time, status in data %}
                                 <li>
 				<div class='content-wrapper '> 
-                                    <form action="{{url_for('todo.tick', id=id)}}" method="POST">
-                                    <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" name='tick' value='completed'> {{title}} </label>
+                                    <form action="{{url_for('todo.tick', id=id, userid=userid, status='', table='todos')}}" method="POST">
+                                    <div class="form-check"> <label class="form-check-label"style="text-decoration:{%if status=='checked'%}line-through;{%endif%}"> <input class="tickitem checkbox" type="checkbox" name='tick' {{status}}> {{title}} </label>
 					{%if check_overdue(due_date,due_time)=='Overdue'%}
 					<div class='due-alert'>Overdue</div>{%endif%}
 				     </div>
