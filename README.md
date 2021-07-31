@@ -1,7 +1,7 @@
 # ToDo_manager
 
 
-A ToDo manager website backended by Python using Flask, and frontend supported by Bootstrap and Jquery.
+A ToDo manager website backended by Python using Flask, and frontend supported by Bootstrap and Jquery. You can maintain and Schedule tasks, strike them off, overdue alert, and shopping list too.
 
 https://user-images.githubusercontent.com/66622069/127738077-7645f55e-e12d-4ece-879d-3b8d8337c768.mp4
 
