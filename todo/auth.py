@@ -22,7 +22,7 @@ def signin():
                 app.username=userdata[1]
                 username = userdata[1]
                 if password == userdata[0]:
-	                return redirect(url_for("todo.todos", userid=userdata[2]), 302)
+                        return redirect(url_for("todo.todos", userid=userdata[2]), 302)
                 else:
                         alert='Invalid password' 
                         return render_template('todo/signin.html', alert=alert) 
@@ -37,7 +37,6 @@ def signup():
     if request.method == "GET":
         return render_template('todo/signup.html')
     elif request.method == "POST":
-        global username
         username = request.form.get('name').capitalize()
         email = request.form.get('email')
         password = request.form.get('password')

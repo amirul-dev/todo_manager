@@ -6,6 +6,7 @@ def create_app():
 	app.config.from_mapping(        
 		DATABASE=os.path.join(app.instance_path, 'todo.sqlite')	
 	)
+	app.config['username']=''
 
 	from . import db,todo,auth,functions             
 	app.register_blueprint(todo.bp)  
