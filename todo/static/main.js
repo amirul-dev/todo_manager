@@ -1,9 +1,7 @@
 function first_todo(userid){
         $.get('/firstitem/'+userid, function(resp){
-	data = resp.split(';');
-	console.log(resp);
-	$('.first-todo h2').html(data[0]);
-	$('.first-todo h5').html(data[1]);
+	$('.first-todo h2').html(resp['first_todo']);
+	$('.first-todo h5').html(resp['rem_time']);
 	});
 }
 
@@ -46,5 +44,4 @@ function tick(){
 
 $(deletebutton);
 $(tick);
-
 

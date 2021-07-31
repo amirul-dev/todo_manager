@@ -11,6 +11,7 @@
 	</div>
 	<div class='col-lg-6' id='form'>
 		<h3>Sign up</h3>
+		<p class='auth-alert'>{{alert}}</p>
 		<form action="{{url_for('todo.signup')}}" method="POST">
                     <div class="form-group">
 		    <label for="email">Name</label>
@@ -33,8 +34,9 @@
 		    <label class="form-check-label" for="remember" name='password' value=1>Remember</label>
 		  </div>
 		  </br>
-		  <button type="submit" class="btn">Submit</button>
+		  <button type="submit" class="auth-btn btn">Submit</button>
 		</form>	
+		
 	</div>
 	</div>
 {% endblock %}

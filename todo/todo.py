@@ -1,4 +1,4 @@
-from flask import Blueprint, g, render_template, request, redirect, url_for
+from flask import Blueprint, g, render_template, request, redirect, url_for, jsonify
 from . import db
 import datetime
 import passlib
@@ -82,9 +82,11 @@ def signin():
                 if password == userdata[0]:
 	                return redirect(url_for("todo.todos", userid=userdata[2]), 302)
                 else:
-                        return render_template('todo/signin.html') 
-        else:
-                return redirect(url_for("todo.signup"), 302) 
+                        alert='Invalid password' 
+                        return render_template('todo/signin.html', alert=alert) 
+        else:	
+                alert='It seems that you dont have an account'
+                return render_template('todo/signin.html',alert=alert) 
         
 @bp.route('/signup', methods=['GET', 'POST'])       
 def signup():
@@ -103,9 +105,11 @@ def signup():
         emails = cursor.fetchall()
         emails = [x[0] for x in emails]
         if email in emails:
-                return redirect(url_for("todo.signin"), 302)
+                alert='You already have an account'
+                return render_template('todo/signup.html',alert=alert)
         elif password!=password2: 
-                return render_template('todo/signup.html') 
+                alert='Passwords do not match'
+                return render_template('todo/signup.html',alert=alert) 
         else:
                 cursor.execute("insert into users (name, email, password) values (?,?,?)", [username, email, password])
                 conn.commit()
@@ -149,7 +153,9 @@ def firstitem(userid):
     else:
         first_todo = ''
         rem_time, status = '',''
-    return f'{first_todo};{status}{rem_time}'
+    #return f'{first_todo};{status}{rem_time}'
+    data = {'first_todo':first_todo, 'rem_time':status+rem_time}
+    return jsonify(data)
 
 @bp.route('/shopping/<userid>', methods=['GET', 'POST'])       
 def shopping(userid):
