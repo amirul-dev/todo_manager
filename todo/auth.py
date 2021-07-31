@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, jsonify, app
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from . import db
 
 bp = Blueprint('auth', 'auth')
@@ -17,12 +17,10 @@ def signin():
         emails = cursor.fetchall()
         emails = [x[0] for x in emails]
         if email in emails:
-                cursor.execute("select password, name, id from users where email = ?", [email])
+                cursor.execute("select password, id from users where email = ?", [email])
                 userdata = cursor.fetchone()
-                app.username=userdata[1]
-                username = userdata[1]
                 if password == userdata[0]:
-                        return redirect(url_for("todo.todos", userid=userdata[2]), 302)
+                        return redirect(url_for("todo.todos", userid=userdata[1]), 302)
                 else:
                         alert='Invalid password' 
                         return render_template('todo/signin.html', alert=alert) 
@@ -52,7 +50,6 @@ def signup():
                 alert='Passwords do not match'
                 return render_template('todo/signup.html',alert=alert) 
         else:
-                app.username=username
                 cursor.execute("insert into users (name, email, password) values (?,?,?)", [username, email, password])
                 conn.commit()
                 cursor.execute("select id from users where email = ?",[email])

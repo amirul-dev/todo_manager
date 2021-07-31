@@ -1,11 +1,10 @@
-from flask import Blueprint, render_template, request, redirect, url_for, jsonify, app
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from . import db, datetimeCalc as dt
 
 bp = Blueprint('todo', 'todo', url_prefix='/')
 
 @bp.route('/')
 def index():
-	app.username = ''
 	return render_template('todo/index.html')  
 
 @bp.route('/todos/<userid>', methods=['GET', 'POST'])       
@@ -13,8 +12,9 @@ def todos(userid):
     conn = db.get_db()
     cursor = conn.cursor()
     if request.method == "GET":
-        if app.username=='':
-                return redirect(url_for("todo.index"), 302)
+        cursor.execute("select name from users where id=?",[userid])
+        userdata = cursor.fetchone()
+        username = userdata[0]
         cursor.execute("select id, title, due_date, due_time, status from todos where userid=? order by due_date, due_time ",[userid])
         data = cursor.fetchall()
         if data:
@@ -23,7 +23,7 @@ def todos(userid):
         else:
                 first_todo = ''
                 rem_time, status = '',''
-        return render_template('todo/todos.html', data=data, first_todo=first_todo, rem_time=rem_time, status=status, format_date=dt.format_date, format_time=dt.format_time, check_overdue=dt.check_overdue, nav_right_text=app.username, userid=userid)
+        return render_template('todo/todos.html', data=data, first_todo=first_todo, rem_time=rem_time, status=status, format_date=dt.format_date, format_time=dt.format_time, check_overdue=dt.check_overdue, nav_right_text=username, userid=userid)
     elif request.method == "POST":
         newtodo = request.form.get('new-todo').capitalize()
         newtodo_date = request.form.get('new-todo-date')
@@ -37,11 +37,12 @@ def shopping(userid):
     conn = db.get_db()
     cursor = conn.cursor()
     if request.method == "GET":
-        if app.username=='':
-                return redirect(url_for("todo.index"), 302)
+        cursor.execute("select name from users where id=?",[userid])
+        userdata = cursor.fetchone()
+        username = userdata[0]
         cursor.execute("select id, item, status from shopping where userid=?",[userid])
         data = cursor.fetchall()
-        return render_template('todo/shopping.html', data=data, nav_right_text=app.username, userid=userid)
+        return render_template('todo/shopping.html', data=data, nav_right_text=username, userid=userid)
     elif request.method == "POST":
         newitem = request.form.get('new-item')
         cursor.execute("insert into shopping (item, userid) values (?,?)", [newitem,userid])
