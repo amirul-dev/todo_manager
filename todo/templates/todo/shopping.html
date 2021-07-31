@@ -22,12 +22,12 @@
 				{% for id, title, status in data %}
                                 <li>
 				<div class='content-wrapper '> 
-                                    <form action="{{url_for('todo.tick', id=id, userid=userid, status='', table='shopping')}}" method="POST">
+                                    <form action="{{url_for('functions.tick', id=id, userid=userid, status='', table='shopping')}}" method="POST">
                                     <div class="form-check"> <label class="form-check-label" style="text-decoration:{%if status=='checked'%}line-through;{%endif%}"> <input class="tickitem checkbox" type="checkbox" name='tick' {{status}}> {{title}}</label> </div>
 				    </form>
 
 				    <div class="content-right"> 
-				    <form action="{{url_for('todo.delete', id=id, table='shopping',userid=userid)}}" method="POST">
+				    <form action="{{url_for('functions.delete', id=id, table='shopping',userid=userid)}}" method="POST">
 					<button class="delete-btn border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
 				    </form>
 

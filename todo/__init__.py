@@ -4,13 +4,14 @@ import os
 def create_app():                       
 	app = Flask("todo")     
 	app.config.from_mapping(        
-		DATABASE=os.path.join(app.instance_path, 'todo.sqlite')
+		DATABASE=os.path.join(app.instance_path, 'todo.sqlite')	
 	)
 
-	from . import todo              
+	from . import db,todo,auth,functions             
 	app.register_blueprint(todo.bp)  
-
-	from . import db               
-	db.init_app(app) 
+	app.register_blueprint(auth.bp)
+	app.register_blueprint(functions.bp)
+           
+	db.init_app(app)
 
 	return app

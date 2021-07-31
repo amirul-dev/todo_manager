@@ -26,5 +26,3 @@ create table users (
        name text not null,
        email text not null,
        password text not null);
-
-insert into users (name, email, password) values ('amirul', 'amirul@mail.com', '12345');
