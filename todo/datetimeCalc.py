@@ -1,4 +1,5 @@
 import datetime
+import pytz
 
 def rem_time_calc(f):
 	if f[4]=='checked':
@@ -6,9 +7,10 @@ def rem_time_calc(f):
 	else:
 		due_date = datetime.datetime.strptime(f[2], '%Y-%m-%d')
 		dt = f[3].split(':')
-		due_time = datetime.timedelta(hours=int(dt[0])+5, minutes=int(dt[1])+30)
+		due_time = datetime.timedelta(hours=int(dt[0]), minutes=int(dt[1]))
 		due_datetime = due_date+due_time
-		current_datetime = datetime.datetime.now()
+		IST = pytz.timezone('Asia/Kolkata')
+		current_datetime = datetime.datetime.now(IST).replace(tzinfo=None)
 		rem_time = due_datetime - current_datetime
 		days = abs(rem_time.days)
 		seconds = rem_time.seconds
