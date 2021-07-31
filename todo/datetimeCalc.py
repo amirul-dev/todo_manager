@@ -1,5 +1,4 @@
 import datetime
-import pytz
 
 def rem_time_calc(f):
 	if f[4]=='checked':
